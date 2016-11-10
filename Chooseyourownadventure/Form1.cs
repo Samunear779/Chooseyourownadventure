@@ -59,7 +59,7 @@ namespace Chooseyourownadventure
                 }
                 else if (scene == 7)
                 {
-                    scene = 1;
+                    scene = 1; 
                 }
                 else if (scene == 8)
                 {
