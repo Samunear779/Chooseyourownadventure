@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Sam and Carter 
+//Adventure Game 
+//November 10, 2016
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,12 +11,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace Chooseyourownadventure
 {
     public partial class Form1 : Form
     {
-        
+        //creates variables, sound players and random number generator
+        SoundPlayer lockedDoor = new SoundPlayer(Properties.Resources.Locked_door_sound_effect__mp3cut_net_);
+        SoundPlayer creakingSound = new SoundPlayer(Properties.Resources.Creaking_Floor_Board);
+        SoundPlayer knockSound = new SoundPlayer(Properties.Resources.Door_Knocking_Sound_Effect__mp3cut_net_);
+        SoundPlayer bellSound = new SoundPlayer(Properties.Resources.Totally_Free_Sound_Effects__22___Door_Chime_or_Store_Chime__mp3cut_net_);
         Random randGen = new Random();
         int smash;
         int scene = 0;
@@ -24,7 +33,7 @@ namespace Chooseyourownadventure
         }
 
        
-
+        //Changes scenes when the M key is pressed
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.M)
@@ -130,6 +139,7 @@ namespace Chooseyourownadventure
 
             }
 
+            //Changes scenes when the B key is pressed
             if (e.KeyCode == Keys.B)
             {
                 if (scene == 0)
@@ -215,6 +225,7 @@ namespace Chooseyourownadventure
                 }
             }
 
+            //Changes scenes if the N button is pressed 
             if (e.KeyCode == Keys.N)
             {
                 if (scene == 9)
@@ -224,6 +235,7 @@ namespace Chooseyourownadventure
                
             }
 
+            //Displays the required information based on what scene it is on currently
             switch (scene)
             {
                 case 0:
@@ -235,16 +247,19 @@ namespace Chooseyourownadventure
                     
                     break;
                 case 1:
+                    knockSound.Play();
                     outputLabel.Text = "You go to the house and knock on the door, doing so you slightly push it open.";
                     choice1.Text = "Enter the house";
                     choice2.Text = "Knock again";
                     break;
                 case 2:
+                    bellSound.Play();
                     outputLabel.Text = "You go to the convince store and open the door, the clerk looks at you and smiles \n as the bell rings";
                     choice1.Text = "Ask for directions";
                     choice2.Text = "Leave without buying anything";
                     break;
                 case 3:
+                    knockSound.Play();
                     outputLabel.Text = "You knock 3 more times and there is no answer.";
                     choice1.Text = "Go in";
                     choice2.Text = "Give up and try to find your way";
@@ -253,8 +268,8 @@ namespace Chooseyourownadventure
                     labelN.Visible = false;
                     choice3.Visible = false;
                     outputLabel.Text = "You enter the house quietly yelling hello stepping further into the house, there's \n no answer, you see a dark hallway and a staircase leading to the second floor.";
-                    choice1.Text = "Upstairs";
-                    choice2.Text = "Down the hallway";
+                    choice1.Text = "Go upstairs";
+                    choice2.Text = "Go down the hallway";
 
                     break;
                 case 5:
@@ -273,6 +288,7 @@ namespace Chooseyourownadventure
                     choice2.Text = "Try and find your own way";
                     break;
                 case 8:
+                    creakingSound.Play();
                     outputLabel.Text = "You move down the hallway, the floor squeaking with every step, you come to a\n kitchen and there is a woman at the table.";
                     choice1.Text = "Speak to the woman";
                     choice2.Text = "Back away";
@@ -298,6 +314,7 @@ namespace Chooseyourownadventure
                     choice2.Text = "You still dead";
                     break;
                 case 12:
+                    lockedDoor.Play();
                     outputLabel.Text = "The door is locked try another";
                     choice1.Text = "Return to the hall";
                     choice2.Visible = false;
@@ -363,22 +380,18 @@ namespace Chooseyourownadventure
                     choice3.Visible = false;
                     labelN.Visible = false;
                     labelB.Visible = false;
-
-
                     break;
-
-
                 default:
                     break;
             }
         }
 
+        //sets scene to 0 and third option label to invivisble at the start of the game.
         private void Form1_Load(object sender, EventArgs e)
         {
             scene = 0;
             labelN.Visible = false;
             choice3.Visible = false;
-
         }
     }
 }
